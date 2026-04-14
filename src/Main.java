@@ -1,4 +1,3 @@
-import java.util.LinkedList;
 import java.util.Scanner;
 
 class BankAccount {
@@ -10,6 +9,80 @@ class BankAccount {
         this.accountNumber = accountNumber;
         this.username = username;
         this.balance = balance;
+    }
+}
+
+class AccountNode {
+    BankAccount data;
+    AccountNode next;
+
+    AccountNode(BankAccount data) {
+        this.data = data;
+        this.next = null;
+    }
+}
+
+class MyLinkedList {
+    AccountNode head;
+
+    void add(BankAccount account) {
+        AccountNode newNode = new AccountNode(account);
+
+        if (head == null) {
+            head = newNode;
+            return;
+        }
+
+        AccountNode temp = head;
+        while (temp.next != null) {
+            temp = temp.next;
+        }
+
+        temp.next = newNode;
+    }
+
+    boolean isEmpty() {
+        return head == null;
+    }
+
+    int size() {
+        int count = 0;
+        AccountNode temp = head;
+
+        while (temp != null) {
+            count++;
+            temp = temp.next;
+        }
+
+        return count;
+    }
+
+    BankAccount get(int index) {
+        int currentIndex = 0;
+        AccountNode temp = head;
+
+        while (temp != null) {
+            if (currentIndex == index) {
+                return temp.data;
+            }
+            currentIndex++;
+            temp = temp.next;
+        }
+
+        return null;
+    }
+
+    BankAccount findByUsername(String username) {
+        AccountNode temp = head;
+
+        while (temp != null) {
+            if (temp.data.username.equalsIgnoreCase(username)) {
+                return temp.data;
+            }
+            temp = temp.next;
+        }
+
+        return null;
     }
 }
 
@@ -165,7 +238,7 @@ class MyRequestQueue {
 public class Main {
     static Scanner sc = new Scanner(System.in);
 
-    static LinkedList<BankAccount> accounts = new LinkedList<>();
+    static MyLinkedList accounts = new MyLinkedList();
     static MyStack history = new MyStack(100);
     static MyStringQueue billQueue = new MyStringQueue(100);
     static MyRequestQueue requestQueue = new MyRequestQueue(100);
@@ -177,12 +250,7 @@ public class Main {
     };
 
     static BankAccount findAccount(String username) {
-        for (BankAccount acc : accounts) {
-            if (acc.username.equalsIgnoreCase(username)) {
-                return acc;
-            }
-        }
-        return null;
+        return accounts.findByUsername(username);
     }
 
     static void addAccount() {
