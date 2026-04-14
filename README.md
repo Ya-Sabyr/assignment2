@@ -1,7 +1,7 @@
 # Assignment 2 - Banking System
 
-**Name:** Your Name  
-**Group:** Your Group
+**Name:** Sabyr Berikuly
+**Group:** IT-2503
 
 This project is a small Java banking system for Assignment 2 on physical and logical data structures. The whole implementation is in [src/Main.java](src/Main.java).
 
